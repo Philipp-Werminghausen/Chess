@@ -1,0 +1,122 @@
+/*  
+	Sass for the BGM Advertisers Homepage
+*/
+/*++++++++++++++++++++++
+	MIXINS
+++++++++++++++++++++++*/
+/*++++++++++++++++++++++
+	VARIABLES
+++++++++++++++++++++++*/
+/*++++++++++++++++++++++
+	FONTS
+++++++++++++++++++++++*/
+/*++++++++++++++++++++++
+	PARTIALS
+++++++++++++++++++++++*/
+/* line 1, ../components/sass/partials/_chess.scss */
+.index-surround {
+  width: 604px;
+  height: 604px;
+  border: 1px solid black; }
+  /* line 5, ../components/sass/partials/_chess.scss */
+  .index-surround .index-h {
+    width: 600px;
+    height: 50px;
+    padding-left: 2px; }
+  /* line 10, ../components/sass/partials/_chess.scss */
+  .index-surround .index-v {
+    width: 50px;
+    height: 500px;
+    float: left; }
+  /* line 15, ../components/sass/partials/_chess.scss */
+  .index-surround .dummy {
+    height: 50px;
+    width: 50px;
+    float: left;
+    text-align: center;
+    position: relative;
+    top: 15px; }
+
+/* line 24, ../components/sass/partials/_chess.scss */
+.surround {
+  width: 502px;
+  height: 502px;
+  border: 1px solid black;
+  float: left; }
+  /* line 29, ../components/sass/partials/_chess.scss */
+  .surround .abc {
+    width: 500px;
+    height: 50px;
+    padding-left: 1px; }
+  /* line 34, ../components/sass/partials/_chess.scss */
+  .surround .num {
+    width: 50px;
+    height: 400px;
+    float: left; }
+  /* line 40, ../components/sass/partials/_chess.scss */
+  .surround .dummy {
+    height: 50px;
+    width: 50px;
+    float: left;
+    text-align: center;
+    position: relative;
+    top: 15px; }
+
+/* line 49, ../components/sass/partials/_chess.scss */
+.board {
+  width: 400px;
+  height: 400px;
+  border: 1px solid black;
+  float: left; }
+
+/* line 55, ../components/sass/partials/_chess.scss */
+.tile {
+  height: 50px;
+  width: 50px;
+  background: white;
+  float: left;
+  position: relative; }
+
+/* line 62, ../components/sass/partials/_chess.scss */
+.grey {
+  background: grey; }
+
+/* line 65, ../components/sass/partials/_chess.scss */
+.piece {
+  background: url("http://2-0-0-0.com/magnets/google/chess-figures.png");
+  width: 304.87804878px;
+  height: 304.87804878px;
+  position: relative;
+  zoom: 0.164; }
+  /* line 71, ../components/sass/partials/_chess.scss */
+  .piece.white {
+    background-position-y: -425px; }
+  /* line 74, ../components/sass/partials/_chess.scss */
+  .piece.black {
+    background-position-y: -60px; }
+  /* line 77, ../components/sass/partials/_chess.scss */
+  .piece.rook {
+    background-position-x: 0px; }
+  /* line 80, ../components/sass/partials/_chess.scss */
+  .piece.bishop {
+    background-position-x: -300px; }
+  /* line 83, ../components/sass/partials/_chess.scss */
+  .piece.queen {
+    background-position-x: -600px; }
+  /* line 86, ../components/sass/partials/_chess.scss */
+  .piece.king {
+    background-position-x: -900px; }
+  /* line 89, ../components/sass/partials/_chess.scss */
+  .piece.knight {
+    background-position-x: -1200px; }
+  /* line 92, ../components/sass/partials/_chess.scss */
+  .piece.pawn {
+    background-position-x: -1500px; }
+
+/* line 96, ../components/sass/partials/_chess.scss */
+.possibility {
+  background: orange; }
+
+/* line 99, ../components/sass/partials/_chess.scss */
+.danger-map {
+  background: red; }

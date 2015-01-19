@@ -1,0 +1,502 @@
+/*  
+	Sass for the BGM Advertisers Homepage
+*/
+/*++++++++++++++++++++++
+	MIXINS
+++++++++++++++++++++++*/
+/*
+SCSS variables are information about icon's compiled state, stored under its original file name
+
+.icon-home {
+  width: $icon-home-width;
+}
+
+The large array-like variables contain all information about a single icon
+$icon-home: x y offset_x offset_y width height total_width total_height image_path;
+
+At the bottom of this section, we provide information about the spritesheet itself
+$spritesheet: width height image $spritesheet-sprites;
+*/
+/*
+The provided mixins are intended to be used with the array-like variables
+
+.icon-home {
+  @include sprite-width($icon-home);
+}
+
+.icon-email {
+  @include sprite($icon-email);
+}
+*/
+/*
+The `sprites` mixin generates identical output to the CSS template
+  but can be overridden inside of SCSS
+
+@include sprites($spritesheet-sprites);
+*/
+/*++++++++++++++++++++++
+	VARIABLES
+++++++++++++++++++++++*/
+/*++++++++++++++++++++++
+	FONTS
+++++++++++++++++++++++*/
+@import url("http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700");
+/*++++++++++++++++++++++
+	PARTIALS
+++++++++++++++++++++++*/
+/* line 1, ../components/sass/partials/_initial.scss */
+body {
+  font-family: 'Source Sans Pro', sans-serif; }
+
+/* line 4, ../components/sass/partials/_initial.scss */
+.wrap {
+  max-width: 1200px;
+  margin: 0 auto; }
+
+/* line 1, ../components/sass/partials/_header.scss */
+.header {
+  background: #1a1a1a;
+  width: 100%;
+  height: 50px; }
+  /* line 5, ../components/sass/partials/_header.scss */
+  .header .veggie-hamburger {
+    background-image: url(../../assets/sprites/sprite/spritesheet.png);
+    background-position: -34px -55px;
+    width: 22px;
+    height: 14px;
+    float: left;
+    top: 17px;
+    left: 16px;
+    position: relative;
+    cursor: pointer; }
+  /* line 13, ../components/sass/partials/_header.scss */
+  .header .veggie-hamburger-close {
+    background-image: url(../../assets/sprites/sprite/spritesheet.png);
+    background-position: 0px -55px;
+    width: 24px;
+    height: 24px;
+    float: left;
+    top: 13px;
+    left: 15px;
+    position: relative;
+    cursor: pointer; }
+  /* line 21, ../components/sass/partials/_header.scss */
+  .header .bgm-logo {
+    background-image: url(../../assets/sprites/sprite/spritesheet.png);
+    background-position: -51px 0px;
+    width: 176px;
+    height: 42px;
+    float: left;
+    top: 4px;
+    left: 35px;
+    position: relative; }
+
+/* line 29, ../components/sass/partials/_header.scss */
+.veggie-hamburger-menu {
+  background: #333333;
+  color: #fff;
+  display: none;
+  max-width: 400px;
+  width: 100%;
+  padding: 25px;
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 2; }
+  /* line 39, ../components/sass/partials/_header.scss */
+  .veggie-hamburger-menu h2 {
+    color: #808080;
+    text-transform: uppercase; }
+  /* line 43, ../components/sass/partials/_header.scss */
+  .veggie-hamburger-menu ul.sections {
+    list-style: none;
+    padding: 0px; }
+    /* line 46, ../components/sass/partials/_header.scss */
+    .veggie-hamburger-menu ul.sections li {
+      border-bottom: 1px solid #808080;
+      padding: 10px 0px;
+      width: 40%;
+      float: left; }
+    /* line 52, ../components/sass/partials/_header.scss */
+    .veggie-hamburger-menu ul.sections li:nth-child(odd) {
+      margin-right: 20%; }
+    /* line 55, ../components/sass/partials/_header.scss */
+    .veggie-hamburger-menu ul.sections li:nth-child(1), .veggie-hamburger-menu ul.sections li:nth-child(2) {
+      border-top: 1px solid #808080; }
+    /* line 15, ../components/sass/mixins/bourbon/addons/_clearfix.scss */
+    .veggie-hamburger-menu ul.sections:after {
+      content: "";
+      display: table;
+      clear: both; }
+  /* line 60, ../components/sass/partials/_header.scss */
+  .veggie-hamburger-menu ul.brands {
+    list-style: none;
+    padding: 0px; }
+    /* line 63, ../components/sass/partials/_header.scss */
+    .veggie-hamburger-menu ul.brands li {
+      border-bottom: 1px solid #808080;
+      padding: 10px 0px;
+      width: 100%;
+      position: relative; }
+      /* line 15, ../components/sass/mixins/bourbon/addons/_clearfix.scss */
+      .veggie-hamburger-menu ul.brands li:after {
+        content: "";
+        display: table;
+        clear: both; }
+      /* line 69, ../components/sass/partials/_header.scss */
+      .veggie-hamburger-menu ul.brands li .logo-container {
+        width: 50%;
+        float: left;
+        overflow: hidden;
+        text-transform: uppercase; }
+        /* line 74, ../components/sass/partials/_header.scss */
+        .veggie-hamburger-menu ul.brands li .logo-container img {
+          max-width: 90%; }
+      /* line 78, ../components/sass/partials/_header.scss */
+      .veggie-hamburger-menu ul.brands li .links {
+        width: 50%;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        margin-top: -12px; }
+        /* line 85, ../components/sass/partials/_header.scss */
+        .veggie-hamburger-menu ul.brands li .links .advertise {
+          width: 50%;
+          float: left;
+          text-align: center; }
+          /* line 89, ../components/sass/partials/_header.scss */
+          .veggie-hamburger-menu ul.brands li .links .advertise a, .veggie-hamburger-menu ul.brands li .links .advertise a:visited {
+            color: #fff; }
+          /* line 92, ../components/sass/partials/_header.scss */
+          .veggie-hamburger-menu ul.brands li .links .advertise .seperator {
+            width: 1px;
+            height: 25px;
+            background: white;
+            float: right; }
+        /* line 100, ../components/sass/partials/_header.scss */
+        .veggie-hamburger-menu ul.brands li .links .view {
+          width: 50%;
+          float: left;
+          text-align: center; }
+          /* line 104, ../components/sass/partials/_header.scss */
+          .veggie-hamburger-menu ul.brands li .links .view a, .veggie-hamburger-menu ul.brands li .links .view a:visited {
+            color: #fff; }
+    /* line 110, ../components/sass/partials/_header.scss */
+    .veggie-hamburger-menu ul.brands li:nth-child(1), .veggie-hamburger-menu ul.brands li:nth-child(2) {
+      border-top: 1px solid #808080; }
+    /* line 15, ../components/sass/mixins/bourbon/addons/_clearfix.scss */
+    .veggie-hamburger-menu ul.brands:after {
+      content: "";
+      display: table;
+      clear: both; }
+
+/* line 1, ../components/sass/partials/_advertisers.scss */
+.hero {
+  height: 350px;
+  background: url("../../assets/images/boston.jpg");
+  background-position: 50% 60%;
+  background-repeat: no-repeat;
+  position: relative; }
+  /* line 7, ../components/sass/partials/_advertisers.scss */
+  .hero .hedding {
+    z-index: 1;
+    position: relative;
+    font-size: 72px;
+    width: 500px;
+    margin: 0 auto;
+    top: 90px;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 72px; }
+  /* line 18, ../components/sass/partials/_advertisers.scss */
+  .hero .dim {
+    position: absolute;
+    background: url("../../assets/misc/opacity-white-80.png");
+    width: 100%;
+    height: 100%; }
+  @media screen and (max-width: 982px) {
+    /* line 25, ../components/sass/partials/_advertisers.scss */
+    .hero .hedding {
+      font-size: 62px;
+      line-height: 62px;
+      width: 400px; } }
+  @media screen and (max-width: 735px) {
+    /* line 32, ../components/sass/partials/_advertisers.scss */
+    .hero .hedding {
+      font-size: 52px;
+      line-height: 52px;
+      width: 350px; } }
+  @media screen and (max-width: 376px) {
+    /* line 1, ../components/sass/partials/_advertisers.scss */
+    .hero {
+      height: 300px; }
+      /* line 40, ../components/sass/partials/_advertisers.scss */
+      .hero .hedding {
+        font-size: 40px;
+        line-height: 40px;
+        width: 300px; } }
+
+/* line 47, ../components/sass/partials/_advertisers.scss */
+.menu {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 125px; }
+  /* line 52, ../components/sass/partials/_advertisers.scss */
+  .menu ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    padding-top: 20px;
+    padding-bottom: 20px; }
+    /* line 58, ../components/sass/partials/_advertisers.scss */
+    .menu ul li {
+      float: left;
+      background: #ba0c2f;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      font-size: 36px;
+      color: #fff;
+      font-weight: 500;
+      width: 25%;
+      height: 45px;
+      text-align: center;
+      cursor: pointer;
+      position: relative; }
+      /* line 71, ../components/sass/partials/_advertisers.scss */
+      .menu ul li .arrow {
+        background-image: url(../../assets/sprites/sprite/spritesheet.png);
+        background-position: -24px -55px;
+        width: 10px;
+        height: 18px;
+        position: relative;
+        top: 15px;
+        float: right; }
+      /* line 77, ../components/sass/partials/_advertisers.scss */
+      .menu ul li .center-link {
+        width: 200px;
+        margin: 0 auto;
+        text-transform: uppercase; }
+      /* line 82, ../components/sass/partials/_advertisers.scss */
+      .menu ul li .seperator {
+        position: absolute;
+        width: 2px;
+        height: 85px;
+        background: white;
+        right: 0;
+        top: 0; }
+  @media screen and (max-width: 982px) {
+    /* line 47, ../components/sass/partials/_advertisers.scss */
+    .menu {
+      height: 96px; }
+      /* line 95, ../components/sass/partials/_advertisers.scss */
+      .menu ul li {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 28px; }
+        /* line 99, ../components/sass/partials/_advertisers.scss */
+        .menu ul li .center-link {
+          width: 170px; }
+        /* line 102, ../components/sass/partials/_advertisers.scss */
+        .menu ul li .arrow {
+          top: 10px; } }
+  @media screen and (max-width: 735px) {
+    /* line 47, ../components/sass/partials/_advertisers.scss */
+    .menu {
+      height: 272px; }
+      /* line 111, ../components/sass/partials/_advertisers.scss */
+      .menu ul li {
+        padding-bottom: 12px;
+        width: 100%; }
+        /* line 114, ../components/sass/partials/_advertisers.scss */
+        .menu ul li .seperator {
+          position: absolute;
+          width: 100%;
+          height: 2px;
+          background: white;
+          right: 0;
+          top: 56px; } }
+
+/* line 126, ../components/sass/partials/_advertisers.scss */
+.content-container {
+  position: relative; }
+  /* line 128, ../components/sass/partials/_advertisers.scss */
+  .content-container .hedding {
+    color: #656565;
+    text-transform: uppercase; }
+  /* line 132, ../components/sass/partials/_advertisers.scss */
+  .content-container .content {
+    position: relative; }
+    /* line 15, ../components/sass/mixins/bourbon/addons/_clearfix.scss */
+    .content-container .content:after {
+      content: "";
+      display: table;
+      clear: both; }
+    /* line 135, ../components/sass/partials/_advertisers.scss */
+    .content-container .content .brand {
+      width: 33%;
+      float: left;
+      position: relative;
+      margin-bottom: .5%; }
+      /* line 140, ../components/sass/partials/_advertisers.scss */
+      .content-container .content .brand .plus {
+        background-image: url(../../assets/sprites/sprite/spritesheet.png);
+        background-position: 0px 0px;
+        width: 51px;
+        height: 55px;
+        position: absolute;
+        bottom: 0;
+        margin: 0 auto;
+        bottom: 10%;
+        margin-left: -25.5px;
+        left: 50%; }
+      /* line 149, ../components/sass/partials/_advertisers.scss */
+      .content-container .content .brand .brand-img {
+        width: 100%;
+        display: block; }
+      /* line 153, ../components/sass/partials/_advertisers.scss */
+      .content-container .content .brand .info {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #ba0c2f;
+        color: #fff;
+        display: none;
+        top: 0;
+        left: 0; }
+        /* line 162, ../components/sass/partials/_advertisers.scss */
+        .content-container .content .brand .info .close {
+          background-image: url(../../assets/sprites/sprite/spritesheet.png);
+          background-position: 0px -55px;
+          width: 24px;
+          height: 24px;
+          position: relative;
+          right: 10px;
+          top: 10px;
+          float: right;
+          cursor: pointer; }
+        /* line 170, ../components/sass/partials/_advertisers.scss */
+        .content-container .content .brand .info .title {
+          margin: 40px;
+          margin-bottom: 0px;
+          text-transform: uppercase;
+          font-size: 22px; }
+        /* line 176, ../components/sass/partials/_advertisers.scss */
+        .content-container .content .brand .info .description {
+          margin: 20px 40px; }
+        /* line 179, ../components/sass/partials/_advertisers.scss */
+        .content-container .content .brand .info .more {
+          text-transform: uppercase;
+          margin: 40px;
+          bottom: 0;
+          position: absolute;
+          font-size: 32px;
+          width: 200px;
+          cursor: pointer; }
+          /* line 187, ../components/sass/partials/_advertisers.scss */
+          .content-container .content .brand .info .more .arrow {
+            background-image: url(../../assets/sprites/sprite/spritesheet.png);
+            background-position: -24px -55px;
+            width: 10px;
+            height: 18px;
+            position: relative;
+            top: 12px;
+            float: right; }
+    /* line 196, ../components/sass/partials/_advertisers.scss */
+    .content-container .content .brand:nth-child(3n+2) {
+      margin-right: .5%;
+      margin-left: .5%; }
+    /* line 200, ../components/sass/partials/_advertisers.scss */
+    .content-container .content .ratio {
+      position: relative;
+      width: 66.66%;
+      padding-bottom: 33.33%;
+      /* 16:9 */
+      height: 0;
+      margin-bottom: 2.5em;
+      float: left; }
+      /* line 207, ../components/sass/partials/_advertisers.scss */
+      .content-container .content .ratio .brand-next {
+        width: 66.66%;
+        height: 100%; }
+        /* line 210, ../components/sass/partials/_advertisers.scss */
+        .content-container .content .ratio .brand-next .info {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 99.75%;
+          height: 99%;
+          background: #ba0c2f;
+          display: block;
+          text-align: center;
+          margin-left: .75%;
+          cursor: pointer; }
+          /* line 221, ../components/sass/partials/_advertisers.scss */
+          .content-container .content .ratio .brand-next .info .hedding {
+            font-size: 36px;
+            text-transform: uppercase;
+            color: white;
+            width: 600px;
+            margin: 20% auto; }
+            /* line 227, ../components/sass/partials/_advertisers.scss */
+            .content-container .content .ratio .brand-next .info .hedding .arrow {
+              background-image: url(../../assets/sprites/sprite/spritesheet.png);
+              background-position: -24px -55px;
+              width: 10px;
+              height: 18px;
+              position: relative;
+              top: 15px;
+              float: right; }
+    @media screen and (max-width: 982px) {
+      /* line 238, ../components/sass/partials/_advertisers.scss */
+      .content-container .content .brand {
+        width: 49.75%; }
+      /* line 241, ../components/sass/partials/_advertisers.scss */
+      .content-container .content .brand:nth-child(3n+2) {
+        margin-right: 0%;
+        margin-left: 0%; }
+      /* line 245, ../components/sass/partials/_advertisers.scss */
+      .content-container .content .brand:nth-child(odd) {
+        margin-right: .5%; }
+      /* line 248, ../components/sass/partials/_advertisers.scss */
+      .content-container .content .ratio {
+        width: 100%;
+        padding-bottom: 20%; }
+        /* line 252, ../components/sass/partials/_advertisers.scss */
+        .content-container .content .ratio .brand-next .info {
+          margin-left: 0px; }
+          /* line 255, ../components/sass/partials/_advertisers.scss */
+          .content-container .content .ratio .brand-next .info .hedding {
+            margin: 6% auto; } }
+    @media screen and (max-width: 735px) {
+      /* line 263, ../components/sass/partials/_advertisers.scss */
+      .content-container .content .brand {
+        width: 100%; }
+        /* line 265, ../components/sass/partials/_advertisers.scss */
+        .content-container .content .brand .brand-img {
+          width: 100%; }
+        /* line 268, ../components/sass/partials/_advertisers.scss */
+        .content-container .content .brand .info {
+          width: 100%; }
+      /* line 272, ../components/sass/partials/_advertisers.scss */
+      .content-container .content .ratio {
+        width: 100%;
+        padding-bottom: 32%; }
+        /* line 276, ../components/sass/partials/_advertisers.scss */
+        .content-container .content .ratio .brand-next .info {
+          width: 100%; }
+          /* line 278, ../components/sass/partials/_advertisers.scss */
+          .content-container .content .ratio .brand-next .info .hedding {
+            margin: 6% auto;
+            width: 320px;
+            font-size: 32px; }
+            /* line 282, ../components/sass/partials/_advertisers.scss */
+            .content-container .content .ratio .brand-next .info .hedding .arrow {
+              top: 0; } }
+
+/* line 292, ../components/sass/partials/_advertisers.scss */
+.footer {
+  margin-top: 50px;
+  background: #1a1a1a;
+  width: 100%;
+  height: 100px; }

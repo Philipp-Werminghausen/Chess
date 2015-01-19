@@ -1,0 +1,15 @@
+{
+  "name": "BGM",
+  "version": "1.0.0",
+  "description": "Boston Globe Media - Corporate advertisers page. Created and maintained by Creative Services",
+  "author": "Joe Lovasco, Kathleen Miranda, David Prior, Philipp Werminghausen",
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-compass": "^1.0.1",
+    "grunt-contrib-copy": "^0.7.0",
+    "grunt-contrib-uglify": "^0.7.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-spritesmith": "^3.5.0",
+    "matchdep": "^0.3.0"
+  }
+}

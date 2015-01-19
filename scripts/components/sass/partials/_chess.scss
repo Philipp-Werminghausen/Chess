@@ -1,0 +1,101 @@
+.index-surround{
+    width:604px;
+    height: 604px;
+    border:1px solid black;
+    .index-h{
+        width:600px;
+        height: 50px;
+        padding-left:2px;
+    }
+    .index-v{
+        width:50px;
+        height:500px;
+        float:left;
+    }
+    .dummy{
+            height:50px;
+            width: 50px;
+            float:left;  
+            text-align: center;
+          position: relative;
+          top: 15px;
+     }
+}
+.surround{
+    width:502px;
+    height: 502px;
+    border:1px solid black;
+    float:left;
+    .abc{
+        width:500px;
+        height: 50px;
+        padding-left:1px;
+    }
+    .num{
+        width:50px;
+        height:400px;
+        float:left;
+    }
+    
+        .dummy{
+            height:50px;
+            width: 50px;
+            float:left;  
+            text-align: center;
+          position: relative;
+          top: 15px;
+        }
+}
+.board {
+    width:400px;
+    height: 400px;
+    border:1px solid black;
+    float:left;
+}
+.tile {
+    height:50px;
+    width: 50px;
+    background: white;
+    float:left;
+    position: relative;
+}
+.grey {
+    background: grey;
+}
+.piece {
+    background: url('http://2-0-0-0.com/magnets/google/chess-figures.png');
+    width: 304.87804878px;
+    height: 304.87804878px;
+    position: relative;
+    zoom: 0.164;
+    &.white {
+        background-position-y: -425px;
+    }
+    &.black {
+        background-position-y: -60px;
+    }
+    &.rook {
+        background-position-x: 0px;
+    }
+    &.bishop {
+          background-position-x: -300px;
+    }
+    &.queen {
+        background-position-x: -600px;
+    }
+    &.king {
+        background-position-x: -900px;
+    }
+    &.knight {
+        background-position-x: -1200px;
+    }
+    &.pawn {
+        background-position-x: -1500px;
+    }
+}
+.possibility{
+    background:orange;
+}
+.danger-map{
+    background:red;
+}

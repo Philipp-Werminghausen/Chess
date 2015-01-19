@@ -1,0 +1,24 @@
+/*  
+	Sass for the BGM Advertisers Homepage
+*/
+
+/*++++++++++++++++++++++
+	MIXINS
+++++++++++++++++++++++*/
+
+@import "mixins/bourbon/bourbon";
+
+/*++++++++++++++++++++++
+	VARIABLES
+++++++++++++++++++++++*/
+$black      : #1a1a1a;
+$white      : #fff;
+/*++++++++++++++++++++++
+	FONTS
+++++++++++++++++++++++*/
+
+/*++++++++++++++++++++++
+	PARTIALS
+++++++++++++++++++++++*/
+
+@import "partials/chess";
