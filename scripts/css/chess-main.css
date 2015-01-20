@@ -120,3 +120,15 @@
 /* line 99, ../components/sass/partials/_chess.scss */
 .danger-map {
   background: red; }
+
+/* line 102, ../components/sass/partials/_chess.scss */
+.progression {
+  padding: 10px; }
+
+/* line 105, ../components/sass/partials/_chess.scss */
+.selected {
+  background: green; }
+
+/* line 108, ../components/sass/partials/_chess.scss */
+.choose {
+  display: none; }
