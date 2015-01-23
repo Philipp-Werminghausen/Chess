@@ -234,9 +234,9 @@ module.board = {
 		return dangerMap;
 	},
 	getKingPos: function(board,side) {
-		var king = -41;
+		var king = 41;
 		if(side){
-			king = 41;
+			king = -41;
 		}
 		for (var i = 0; i < board.length; i++) {
 			for (var j = 0; j < board[i].length; j++) {
@@ -246,11 +246,11 @@ module.board = {
 			};
 		};
 	},
-	inDanger: function(side,map,pos) {
+	inDanger: function(side,dangerMap,pos) {
 		if(!pos){
 			pos = data.king[side];
 		}
-		if(map[pos[0]][pos[1]]){
+		if(dangerMap[pos[0]][pos[1]]){
 			return true;
 		}
 		return false;
@@ -1214,7 +1214,7 @@ module.possibilities = {
 	    		if(board[i][7] == rook){//left has rook
 	    			if(!module.board.hasMoved(rook,[i,7])){//rook has never been moved
 	    				if(board[i][6] == 0 && board[i][5] == 0){//path is free
-	    					if(!inDanger(side,map,[i,5]) && !inDanger(side,map,[i,6]) && !inDanger(side,map)){
+	    					if(!module.board.inDanger(side,map,[i,5]) && !module.board.inDanger(side,map,[i,6]) && !module.board.inDanger(side,map)){
 	    						if(!module.board.putsKingInDanger([i,j],[i,6])){//careful only checks when king only moves
 					        		possibilities.push([i,6,'casteling']);
 					        	}
@@ -1226,7 +1226,7 @@ module.possibilities = {
 	    		if(board[i][0] == rook){//right has rook
 					if(!module.board.hasMoved(rook,[i,0])){//rook is ok for casteling
 	    				if(board[i][1] == 0 && board[i][2] == 0 && board[i][3] == 0){//path is free
-	    					if(!inDanger(side,map,[i,2]) && !inDanger(side,map,[i,3]) && !inDanger(side,map)){
+	    					if(!module.board.inDanger(side,map,[i,2]) && !module.board.inDanger(side,map,[i,3]) && !module.board.inDanger(side,map)){
 	    						if(!module.board.putsKingInDanger([i,j],[i,2])){//careful only checks when king only moves
 					        		possibilities.push([i,2,'casteling']);
 					        	}
@@ -1462,7 +1462,7 @@ $(function () {
 			}
 			if($(this).hasClass('en-passant')){
 				$(this).removeClass('en-passant');
-				var side = getSide(data.board[i][j]);
+				var side = module.ui.getSide(data.board[i][j]);
 				if(side == 'white'){
 					module.board.removePiece(data.board,[i+1,j]);
 				}else{
@@ -1478,7 +1478,7 @@ $(function () {
 					$('.choose').off('change').hide();
 					$('.choose option').each(function () {
 						if($(this).is(':selected')){
-							module.board.placePiece(data.board,[$(this).parent().data('i'),$(this).parent().data('j')],$(this).val(),getSide(data.board[$(this).parent().data('i')][$(this).parent().data('j')]));
+							module.board.placePiece(data.board,[$(this).parent().data('i'),$(this).parent().data('j')],$(this).val(),module.ui.getSide(data.board[$(this).parent().data('i')][$(this).parent().data('j')]));
 						}
 						$(this).attr('selected',false);
 					})
