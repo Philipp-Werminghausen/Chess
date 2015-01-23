@@ -105,6 +105,17 @@ module.ui = {
 	},
 	hideDangerMap: function(map) {
 		$('.danger-map').removeClass('danger-map');
+	},
+	showPossibleMoves: function (possibilities) {
+	    for (var i = possibilities.length - 1; i >= 0; i--) {
+	        $('.row:eq(' + possibilities[i][0] + ') .tile:eq(' + possibilities[i][1] + ')').addClass('possibility');
+	        if(possibilities[i].length > 2){
+	        	$('.row:eq(' + possibilities[i][0] + ') .tile:eq(' + possibilities[i][1] + ')').addClass(possibilities[i][2]);
+	        }
+	    };
+	},
+	hidePossibleMoves: function () {
+	    $('.possibility').removeClass('possibility');
 	}
 }
 module.board = {
@@ -162,7 +173,7 @@ module.board = {
 		module.board.trackProgression(board, from, to);
 		module.ui.displayProgression();
 		module.board.movePiece(board,from,to);
-		hidePossibleMoves();
+		module.ui.hidePossibleMoves();
 		module.ui.unSelect();
 		module.board.updateDangerMap(data);
 		module.board.updateKingPosition();
@@ -211,7 +222,8 @@ module.board = {
 		var dangerTiles = [];
 		for (var i = board.length - 1; i >= 0; i--) {
 			for (var j = board[i].length - 1; j >= 0; j--) {
-				if(side == module.board.getSide(board[i][j])){
+				var temp = module.board.getSide(board[i][j]);
+				if(side != temp && temp != "not a piece"){
 					dangerTiles = dangerTiles.concat(module.possibilities.getPossibleMoves(board,i,j,true));
 				}
 			};
@@ -1195,12 +1207,12 @@ module.possibilities = {
 	    	}
 	    }
 	    if(data.special.casteling){
-	    	if(!hasMoved(board[i][j])){
+	    	if(!module.board.hasMoved(board[i][j])){
 	    		var rook = (board[i][j]<0?-5.1:5.1);
 	    		var side = module.ui.getSide(board[i][j]);
 	    		var map = data.danger[side];
 	    		if(board[i][7] == rook){//left has rook
-	    			if(!hasMoved(rook,[i,7])){//rook has never been moved
+	    			if(!module.board.hasMoved(rook,[i,7])){//rook has never been moved
 	    				if(board[i][6] == 0 && board[i][5] == 0){//path is free
 	    					if(!inDanger(side,map,[i,5]) && !inDanger(side,map,[i,6]) && !inDanger(side,map)){
 	    						if(!module.board.putsKingInDanger([i,j],[i,6])){//careful only checks when king only moves
@@ -1212,7 +1224,7 @@ module.possibilities = {
 	    			}
 	    		}
 	    		if(board[i][0] == rook){//right has rook
-					if(!hasMoved(rook,[i,0])){//rook is ok for casteling
+					if(!module.board.hasMoved(rook,[i,0])){//rook is ok for casteling
 	    				if(board[i][1] == 0 && board[i][2] == 0 && board[i][3] == 0){//path is free
 	    					if(!inDanger(side,map,[i,2]) && !inDanger(side,map,[i,3]) && !inDanger(side,map)){
 	    						if(!module.board.putsKingInDanger([i,j],[i,2])){//careful only checks when king only moves
@@ -1271,7 +1283,7 @@ module.possibilities = {
 	    //up one -> left two
 	    if(i>0 && j>1){
 	    	if(board[i-1][j-2] == 0 || (board[i-1][j-2]*board[i][j]) < 0){//empty or enmy
-	    		if(!putsKingInDanger([i,j],[i-1,j-2])){
+	    		if(!module.board.putsKingInDanger([i,j],[i-1,j-2])){
 	        		possibilities.push([i-1,j-2]);
 	        	}
 	    	}
@@ -1279,7 +1291,7 @@ module.possibilities = {
 	    //up one -> right two
 	    if(i>0 && j<6){
 	    	if(board[i-1][j+2] == 0 || (board[i-1][j+2]*board[i][j]) < 0){//empty or enmy
-	    		if(!putsKingInDanger([i,j],[i-1,j+2])){
+	    		if(!module.board.putsKingInDanger([i,j],[i-1,j+2])){
 	        		possibilities.push([i-1,j+2]);
 	        	}
 	    	}
@@ -1287,7 +1299,7 @@ module.possibilities = {
 	    //up two -> left one
 	    if(i>1 && j>0){
 	    	if(board[i-2][j-1] == 0 || (board[i-2][j-1]*board[i][j]) < 0){//empty or enmy
-	    		if(!putsKingInDanger([i,j],[i-2,j-1])){
+	    		if(!module.board.putsKingInDanger([i,j],[i-2,j-1])){
 	        		possibilities.push([i-2,j-1]);
 	        	}
 	    	}
@@ -1295,7 +1307,7 @@ module.possibilities = {
 	    //up two -> right one
 	    if(i>1 && j<7){
 	    	if(board[i-2][j+1] == 0 || (board[i-2][j+1]*board[i][j]) < 0){//empty or enmy
-	    		if(!putsKingInDanger([i,j],[i-2,j+1])){
+	    		if(!module.board.putsKingInDanger([i,j],[i-2,j+1])){
 	        		possibilities.push([i-2,j+1]);
 	        	}
 	    	}
@@ -1303,7 +1315,7 @@ module.possibilities = {
 	    //down one -> left two
 	    if(i<7 && j>1){
 	    	if(board[i+1][j-2] == 0 || (board[i+1][j-2]*board[i][j]) < 0){//empty or enmy
-	    		if(!putsKingInDanger([i,j],[i+1,j-2])){
+	    		if(!module.board.putsKingInDanger([i,j],[i+1,j-2])){
 	        		possibilities.push([i+1,j-2]);
 	        	}
 	    	}
@@ -1311,7 +1323,7 @@ module.possibilities = {
 	    //down one -> right two
 	    if(i<7 && j<6){
 	    	if(board[i+1][j+2] == 0 || (board[i+1][j+2]*board[i][j]) < 0){//empty or enmy
-	    		if(!putsKingInDanger([i,j],[i+1,j+2])){
+	    		if(!module.board.putsKingInDanger([i,j],[i+1,j+2])){
 	        		possibilities.push([i+1,j+2]);
 	        	}
 	    	}
@@ -1319,7 +1331,7 @@ module.possibilities = {
 	    //down two -> left one
 	    if(i<6 && j>0){
 	    	if(board[i+2][j-1] == 0 || (board[i+2][j-1]*board[i][j]) < 0){//empty or enmy
-	    		if(!putsKingInDanger([i,j],[i+2,j-1])){
+	    		if(!module.board.putsKingInDanger([i,j],[i+2,j-1])){
 	        		possibilities.push([i+2,j-1]);
 	        	}
 	    	}
@@ -1327,7 +1339,7 @@ module.possibilities = {
 	    //down two -> right one
 	    if(i<6 && j<7){
 	    	if(board[i+2][j+1] == 0 || (board[i+2][j+1]*board[i][j]) < 0){//empty or enmy
-	    		if(!putsKingInDanger([i,j],[i+2,j+1])){
+	    		if(!module.board.putsKingInDanger([i,j],[i+2,j+1])){
 	        		possibilities.push([i+2,j+1]);
 	        	}
 	    	}
