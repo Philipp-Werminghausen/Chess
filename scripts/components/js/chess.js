@@ -4,8 +4,160 @@
     1/17/2015
     
 */
+$(function () {
+	//currently active board
+	window.data= {
+		board:[
+		    [5.1, 3.2, 3.33, 8.8, 41, 3.33, 3.2, 5.1],
+		    [1, 1, 1, 1, 1, 1, 1, 1],
+		    [0, 0, 0, 0, 0, 0, 0, 0],
+		    [0, 0, 0, 0, 0, 0, 0, 0],
+		    [0, 0, 0, 0, 0, 0, 0, 0],
+		    [0, 0, 0, 0, 0, 0, 0, 0],
+		    [-1, -1, -1, -1, -1, -1, -1, -1],
+		    [-5.1, -3.2, -3.33, -8.8, -41, -3.33, -3.2, -5.1]
+		],
+		progression:[],
+		selectedPiece:[],
+		turn:1,//1 = white first
+		king:{
+			'white':'',
+			'black':''
+		},
+		danger:{
+			'white':'',
+			'black':''
+		},
+		special:{
+			'casteling':true,
+			'en passant':true,
+			'promotion':false
+		},
+		possibleMoves:{
+			'white':0,
+			'black':0
+		}
+	}
+	module.board.updateKingPosition();
+	module.board.updateDangerMap();
+	module.board.updatePossibleMoves();
+	module.ui.drawBoard(data.board);
+	module.ui.updateUi();
+
+	$(document).on('click', '.piece', function() {
+		if($(this).parent().hasClass('possibility')){
+			return;
+		}
+		var j = $('.row .tile').index($(this).parent()) % 8;
+	    var i = Math.floor($('.row .tile').index($(this).parent()) / 8);
+	    if(!module.board.pieceHasTurn(data.board,[i,j])){return;}
+		if(module.board.hasSelected()){
+			module.ui.hidePossibleMoves();
+			module.ui.unSelect();
+		}
+	    var possibilities = module.possibilities.getPossibleMoves(data.board,i,j);
+	    if(possibilities){
+	    	module.ui.showPossibleMoves(possibilities);
+	    }
+	    module.ui.selectPiece([i,j]);
+	});
+	$(document).on('click', '.possibility', function() {
+		if(module.board.hasSelected()){
+		    var j = $('.row .tile').index(this) % 8;
+		    var i = Math.floor($('.row .tile').index(this) / 8);
+		    module.board.moveTo(data.board,data.selectedPiece,[i,j]);
+			if($(this).hasClass('casteling')){
+				$(this).removeClass('casteling');
+				//down (white)
+				if(i == 7){
+					//left
+					if(j>4){
+						module.board.moveTo(data.board,[7,7],[i,j-1]);
+					}else{//right
+						module.board.moveTo(data.board,[7,0],[i,j+1]);
+					}
+				}else if(i == 0){//up (black)
+					//left
+					if(j>4){
+						module.board.moveTo(data.board,[0,7],[i,j-1]);
+					}else{//right
+						module.board.moveTo(data.board,[0,0],[i,j+1]);
+					}
+				}
+			}
+			if($(this).hasClass('en-passant')){
+				$(this).removeClass('en-passant');
+				var side = module.ui.getSide(data.board[i][j]);
+				if(side == 'white'){
+					module.board.removePiece(data.board,[i+1,j]);
+				}else{
+					module.board.removePiece(data.board,[i-1,j]);
+				}
+			}
+			if($(this).hasClass('promotion')){
+				$(this).removeClass('promotion');
+				$('.choose').show();
+				$('.choose').data('i',i);
+				$('.choose').data('j',j);
+				$('.choose').on('change',function () {
+					$('.choose').off('change').hide();
+					$('.choose option').each(function () {
+						if($(this).is(':selected')){
+							module.board.placePiece(data.board,[$(this).parent().data('i'),$(this).parent().data('j')],$(this).val(),module.ui.getSide(data.board[$(this).parent().data('i')][$(this).parent().data('j')]));
+						}
+						$(this).attr('selected',false);
+					})
+				});
+			}
+			module.board.swapTurn();
+			if(data.turn && !data.possibleMoves.white){
+				module.ui.endGame(1);
+			}else if(!data.turn && !data.possibleMoves.black){
+				module.ui.endGame(-1);
+			}
+			module.ui.updateUi();
+		}
+	});
+});
 var module = {};
 module.ai = {};
+//first AI Ace!
+module.ai.ace = {
+	defensive: {
+		//if it is in threat by how much/many?
+		threat:function () {
+			// body...
+		},
+		//its value
+		value:function () {
+			// body...
+		},
+		//how many pieces are covering it and how valuable are they
+		protection:function () {
+			// body...
+		},
+		//how this piece is defending other pieces, but being in the way or covering them
+		defending:function () {
+			// body...
+		}
+	},
+	attack: {
+		//pieces endangered by it the more and the more valuable this goes up
+		threatening: function () {
+			// body...
+		},
+		//if locking a piece because it is protecting the piece behind
+		threatLock: function () {
+			// body...
+		},
+		//the amount of fields on the board covered 
+		threatCover: function () {
+			// body...
+		}
+	}
+
+};
+
 module.ui = {
 	drawBoard: function(board) {
 	    for (var i = 0; i < board.length; i++) {
@@ -116,6 +268,16 @@ module.ui = {
 	},
 	hidePossibleMoves: function () {
 	    $('.possibility').removeClass('possibility');
+	},
+	showWhosTurnItIs:function () {
+		if(data.turn){
+			$('.turn').html('It\'s Whites turn to make a move! White has ' + data.possibleMoves.white + ' possible moves!');
+		}else{
+			$('.turn').html('It\'s Blacks turn to make a move! Black has ' + data.possibleMoves.black + ' possible moves!');
+		}
+	},
+	updateUi:function () {
+		module.ui.showWhosTurnItIs();
 	}
 }
 module.board = {
@@ -177,6 +339,7 @@ module.board = {
 		module.ui.unSelect();
 		module.board.updateDangerMap(data);
 		module.board.updateKingPosition();
+		module.board.updatePossibleMoves();
 		module.ui.drawBoard(board);
 	},
 	trackProgression: function(board, from, to) {
@@ -207,6 +370,22 @@ module.board = {
 	updateKingPosition: function() {
 		data.king.white = module.board.getKingPos(data.board,1);
 		data.king.black = module.board.getKingPos(data.board,0);
+	},
+	updatePossibleMoves: function() {
+		data.possibleMoves.white = module.board.getMoves(data.board,1);
+		data.possibleMoves.black = module.board.getMoves(data.board,0);
+	},
+	getMoves:function (board,side) {
+		var dangerTiles = [];
+		for (var i = board.length - 1; i >= 0; i--) {
+			for (var j = board[i].length - 1; j >= 0; j--) {
+				var temp = module.board.getSide(board[i][j]);
+				if(side == temp){
+					dangerTiles = dangerTiles.concat(module.possibilities.getPossibleMoves(board,i,j));
+				}
+			};
+		};
+		return dangerTiles.length;
 	},
 	getDangerMap: function(board,side) {
 		var dangerMap = [
@@ -1385,106 +1564,3 @@ module.possibilities = {
 	    return possibilities;
 	}
 }
-$(function () {
-	//currently active board
-	window.data= {
-		board:[
-		    [5.1, 3.2, 3.33, 8.8, 41, 3.33, 3.2, 5.1],
-		    [1, 1, 1, 1, 1, 1, 1, 1],
-		    [0, 0, 0, 0, 0, 0, 0, 0],
-		    [0, 0, 0, 0, 0, 0, 0, 0],
-		    [0, 0, 0, 0, 0, 0, 0, 0],
-		    [0, 0, 0, 0, 0, 0, 0, 0],
-		    [-1, -1, -1, -1, -1, -1, -1, -1],
-		    [-5.1, -3.2, -3.33, -8.8, -41, -3.33, -3.2, -5.1]
-		],
-		progression:[],
-		selectedPiece:[],
-		turn:1,//1 = white first
-		king:{
-			'white':'',
-			'black':''
-		},
-		danger:{
-			'white':'',
-			'black':''
-		},
-		special:{
-			'casteling':true,
-			'en passant':true,
-			'promotion':false
-		}
-	}
-	module.board.updateKingPosition();
-	module.board.updateDangerMap();
-	module.ui.drawBoard(data.board);
-
-	$(document).on('click', '.piece', function() {
-		if($(this).parent().hasClass('possibility')){
-			return;
-		}
-		var j = $('.row .tile').index($(this).parent()) % 8;
-	    var i = Math.floor($('.row .tile').index($(this).parent()) / 8);
-	    if(!module.board.pieceHasTurn(data.board,[i,j])){return;}
-		if(module.board.hasSelected()){
-			module.ui.hidePossibleMoves();
-			module.ui.unSelect();
-		}
-	    var possibilities = module.possibilities.getPossibleMoves(data.board,i,j);
-	    if(possibilities){
-	    	module.ui.showPossibleMoves(possibilities);
-	    }
-	    module.ui.selectPiece([i,j]);
-	});
-	$(document).on('click', '.possibility', function() {
-		if(module.board.hasSelected()){
-		    var j = $('.row .tile').index(this) % 8;
-		    var i = Math.floor($('.row .tile').index(this) / 8);
-		    module.board.moveTo(data.board,data.selectedPiece,[i,j]);
-			if($(this).hasClass('casteling')){
-				$(this).removeClass('casteling');
-				//down (white)
-				if(i == 7){
-					//left
-					if(j>4){
-						module.board.moveTo(data.board,[7,7],[i,j-1]);
-					}else{//right
-						module.board.moveTo(data.board,[7,0],[i,j+1]);
-					}
-				}else if(i == 0){//up (black)
-					//left
-					if(j>4){
-						module.board.moveTo(data.board,[0,7],[i,j-1]);
-					}else{//right
-						module.board.moveTo(data.board,[0,0],[i,j+1]);
-					}
-				}
-			}
-			if($(this).hasClass('en-passant')){
-				$(this).removeClass('en-passant');
-				var side = module.ui.getSide(data.board[i][j]);
-				if(side == 'white'){
-					module.board.removePiece(data.board,[i+1,j]);
-				}else{
-					module.board.removePiece(data.board,[i-1,j]);
-				}
-			}
-			if($(this).hasClass('promotion')){
-				$(this).removeClass('promotion');
-				$('.choose').show();
-				$('.choose').data('i',i);
-				$('.choose').data('j',j);
-				$('.choose').on('change',function () {
-					$('.choose').off('change').hide();
-					$('.choose option').each(function () {
-						if($(this).is(':selected')){
-							module.board.placePiece(data.board,[$(this).parent().data('i'),$(this).parent().data('j')],$(this).val(),module.ui.getSide(data.board[$(this).parent().data('i')][$(this).parent().data('j')]));
-						}
-						$(this).attr('selected',false);
-					})
-				});
-			}
-			module.board.swapTurn();
-		}
-	});
-});
