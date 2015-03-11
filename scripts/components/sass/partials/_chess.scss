@@ -95,6 +95,10 @@
 }
 .possibility{
     background:orange;
+    cursor: pointer;
+}
+.possibility:hover{
+    background:rgb(151, 253, 40)
 }
 .danger-map{
     background:red;
@@ -107,4 +111,8 @@
 }
 .choose{
 	display:none;
+}
+.turn{
+    padding: 50px;
+    background: rgb(248, 248, 248);
 }

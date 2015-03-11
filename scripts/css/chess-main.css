@@ -115,20 +115,30 @@
 
 /* line 96, ../components/sass/partials/_chess.scss */
 .possibility {
-  background: orange; }
+  background: orange;
+  cursor: pointer; }
 
-/* line 99, ../components/sass/partials/_chess.scss */
+/* line 100, ../components/sass/partials/_chess.scss */
+.possibility:hover {
+  background: #97fd28; }
+
+/* line 103, ../components/sass/partials/_chess.scss */
 .danger-map {
   background: red; }
 
-/* line 102, ../components/sass/partials/_chess.scss */
+/* line 106, ../components/sass/partials/_chess.scss */
 .progression {
   padding: 10px; }
 
-/* line 105, ../components/sass/partials/_chess.scss */
+/* line 109, ../components/sass/partials/_chess.scss */
 .selected {
   background: green; }
 
-/* line 108, ../components/sass/partials/_chess.scss */
+/* line 112, ../components/sass/partials/_chess.scss */
 .choose {
   display: none; }
+
+/* line 115, ../components/sass/partials/_chess.scss */
+.turn {
+  padding: 50px;
+  background: #f8f8f8; }

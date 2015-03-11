@@ -40,9 +40,9 @@ $(function () {
 	}
 	module.board.updateKingPosition();
 	module.board.updateDangerMap();
+	module.board.updatePossibleMoves();
 	module.ui.drawBoard(data.board);
 	module.ui.updateUi();
-	//module.board.updatePossibleMoves();
 
 	$(document).on('click', '.piece', function() {
 		if($(this).parent().hasClass('possibility')){
@@ -110,11 +110,11 @@ $(function () {
 				});
 			}
 			module.board.swapTurn();
-			// if(data.turn && !data.possibleMoves.white){
-			// 	module.ui.endGame(1);
-			// }else if(!data.turn && !data.possibleMoves.black){
-			// 	module.ui.endGame(-1);
-			// }
+			if(data.turn && !data.possibleMoves.white){
+				module.ui.endGame(1);
+			}else if(!data.turn && !data.possibleMoves.black){
+				module.ui.endGame(-1);
+			}
 			module.ui.updateUi();
 		}
 	});
@@ -271,9 +271,9 @@ module.ui = {
 	},
 	showWhosTurnItIs:function () {
 		if(data.turn){
-			$('.turn').html('It\'s Whites turn to make a move!');// White has' + data.possibleMoves.white + ' possible moves!');
+			$('.turn').html('It\'s Whites turn to make a move! White has <strong>' + data.possibleMoves.white + '</strong> possible moves!');
 		}else{
-			$('.turn').html('It\'s Blacks turn to make a move!'); // Black has + data.possibleMoves.black + ' possible moves!');
+			$('.turn').html('It\'s Blacks turn to make a move! Black has <strong>' + data.possibleMoves.black + '</strong> possible moves!');
 		}
 	},
 	updateUi:function () {
@@ -339,8 +339,8 @@ module.board = {
 		module.ui.unSelect();
 		module.board.updateDangerMap(data);
 		module.board.updateKingPosition();
+		module.board.updatePossibleMoves();
 		module.ui.drawBoard(board);
-		//module.board.updatePossibleMoves();
 	},
 	trackProgression: function(board, from, to) {
 		data.progression.push([board[from[0]][from[1]],from,to]);
